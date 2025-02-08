@@ -1,0 +1,2 @@
+# ScrapSathi
+Waste management application
