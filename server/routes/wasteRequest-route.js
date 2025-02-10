@@ -13,7 +13,8 @@ const { createWasteRequest, getUserWaste } = require("../controller/wasteRequest
 const { acceptWasteRequest, getActiveBookings, getCollectionHistory } = require("../controller/wasteRequest-controller");
 
 router.post("/create", createWasteRequest);
-router.get("/user/:userId", getUserWaste);
+router.get("/user/:userId", getUserWasteRequests);
+router.get("/all", getAllWasteRequests);
 
 router.post("/accept/:wasteId", acceptWasteRequest);
 router.get("/active/:collectorId", getActiveBookings);

@@ -8,3 +8,4 @@ router.get("/all", getAllDonations);
 
 
 module.exports = router;
+router.get("/all", getAllDonations);

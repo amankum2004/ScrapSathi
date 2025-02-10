@@ -37,5 +37,5 @@ module.exports = mongoose.model("WasteRequest", WasteRequestSchema);
 //     createdAt: { type: Date, default: Date.now },
 //   });
 
+module.exports = mongoose.model("WasteRequest", WasteRequestSchema);
 
-  module.exports = mongoose.model("WasteRequest", WasteRequestSchema);
