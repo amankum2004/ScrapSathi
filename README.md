@@ -1,2 +1,2 @@
 # ScrapSathi
-Waste management web application
+Waste management application
