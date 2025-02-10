@@ -1,19 +1,57 @@
 const WasteRequest = require("../model/wasteRequest-model");
 
+// exports.createWasteRequest = async (req, res) => {
+//   try {
+//     const newWaste = new WasteRequest(req.body);
+//     await newWaste.save();
+//     res.json({ message: "Waste request created" });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 exports.createWasteRequest = async (req, res) => {
   try {
-    const newWaste = new WasteRequest(req.body);
-    await newWaste.save();
-    res.json({ message: "Waste request created" });
+    const { userId, wasteItems, location } = req.body;
+    if (!wasteItems || wasteItems.length === 0) {
+      return res.status(400).json({ message: "At least one waste item is required." });
+    }
+
+    const newWasteRequest = new WasteRequest({
+      userId,
+      wasteItems,
+      location,
+      status: "pending"
+    });
+
+    await newWasteRequest.save();
+    res.status(201).json({ message: "Waste request created successfully.", wasteRequest: newWasteRequest });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-exports.getUserWaste = async (req, res) => {
+// exports.getUserWaste = async (req, res) => {
+//   try {
+//     const waste = await WasteRequest.find({ userId: req.params.userId });
+//     res.json(waste);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+exports.getUserWasteRequests = async (req, res) => {
   try {
-    const waste = await WasteRequest.find({ userId: req.params.userId });
-    res.json(waste);
+    const { userId } = req.params;
+    const requests = await WasteRequest.find({ userId });
+    res.json(requests);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getAllWasteRequests = async (req, res) => {
+  try {
+    const requests = await WasteRequest.find();
+    res.json(requests);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
