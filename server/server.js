@@ -12,9 +12,6 @@ const https = createServer(app);
 
 const apiRoute = require('@/routes')
 
-app.use(express.json());
-app.use(cors());
-
 const PORT = process.env.PORT ?? 8000
 
 mongoose

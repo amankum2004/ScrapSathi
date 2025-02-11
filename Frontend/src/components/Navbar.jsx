@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useEffect } from "react";
+=======
+>>>>>>> 5869f83 (backend in register)
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLogin } from "./LoginContext";
 import { NavDropdown } from "react-bootstrap";  
@@ -12,6 +15,7 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
+<<<<<<< HEAD
   const [scrolled, setScrolled] = useState(false);
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false); 
   // New state for side drawer
@@ -24,6 +28,8 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+=======
+>>>>>>> 5869f83 (backend in register)
 
   return (
     <nav
@@ -45,6 +51,7 @@ const Navbar = () => {
             <NavLink to="/about" label="About" />
             <NavLink to="/services" label="Services" />
             <NavLink to="/contact" label="Contact" />
+<<<<<<< HEAD
             <Link
               to="/login"
               className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:from-green-500 hover:to-blue-400"
@@ -64,6 +71,90 @@ const Navbar = () => {
                 <Bars3Icon className="h-7 w-7 transition-transform duration-300" />
               )}
             </button>
+=======
+
+            {loggedIn ? (
+              <>
+                {/* Hide profile image on small screens */}
+                <img
+                  alt="img"
+                  className="img hidden md:block"
+                  src="/images/dp_logo.jpg"
+                  width="50"
+                  height="50"
+                  style={{ marginRight: "4px", marginLeft: "-20px" }} />
+                {/* <NavDropdown
+                  className="nav-dropdown mr-12 md:block"
+                  title={
+                    <span
+                      style={{
+                        color: "black",
+                        fontWeight: 'bold',
+                        fontSize: '19px',
+                        transition: 'color 0.3s ease',
+                        // marginBottom:"30px",marginRight:"30px"
+                      }}
+                    >
+                      {user.name}
+                    </span>
+                  }
+                  id="collasible-nav-dropdown">
+                  {user.usertype === 'individual' ? (
+                    <>
+                      <NavDropdown.Item href="/barberprofile" style={{ color: 'blue', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/registershop" style={{ color: 'blue', fontWeight: 'bold' }}>Register yourself as Waste Collector</NavDropdown.Item>
+                    </>
+                  ) : user.usertype === 'admin' ? (
+                    <>
+                      <NavDropdown.Item href="/customerprofile" style={{ color: 'blue', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/admin" style={{ color: 'green', fontWeight: 'bold' }}>Admin Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/registershop" style={{ color: 'blue', fontWeight: 'bold' }}>Register a Waste Collector</NavDropdown.Item>
+                    </>
+                  ) : (
+                    <>
+                      <NavDropdown.Item href="/customerprofile" style={{ color: 'orange', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/nearbyShops" style={{ color: 'orange', fontWeight: 'bold' }}>Book Appointment</NavDropdown.Item>
+                    </>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logout} style={{ color: 'red', fontWeight: 'bold' }}>Logout</NavDropdown.Item>
+                </NavDropdown> */}
+              </>
+            ) : (
+              <>
+                {/* Hide profile image on small screens */}
+                <img
+                  alt="img"
+                  className="img hidden sm:block"
+                  src="/images/dp_logo.jpg"
+                  width="50"
+                  height="50"
+                  style={{ marginRight: 10 }} />
+                <li className="nav-item login-item">
+                  {/* <NavLink
+                    exact="true"
+                    to="/login"
+                    style={{ color: "yellow", marginBottom: "30px", marginRight: "35px" }}
+                    className="nav-links"
+                    onClick={handleClick}>
+                    Login
+                  </NavLink> */}
+                  <Link
+              to="/register"
+              className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+              onClick={() => setIsOpen(false)}
+            >Login / Signup
+            </Link>
+                </li>
+              </>
+            )}
+            {/* <Link
+              to="/register"
+              className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+            >
+              Login / Signup
+            </Link> */}
+>>>>>>> 5869f83 (backend in register)
           </div>
 
           {/* Mobile Menu Button */}
@@ -82,11 +173,16 @@ const Navbar = () => {
 
         {/* Mobile Dropdown Menu */}
         <div
+<<<<<<< HEAD
           className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             isOpen
               ? "max-h-96 opacity-100 translate-y-0"
               : "max-h-0 opacity-0 -translate-y-4"
           }`}
+=======
+          className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            }`}
+>>>>>>> 5869f83 (backend in register)
         >
           <div className="flex flex-col items-center space-y-5 py-4">
             <NavLink to="/" label="Home" onClick={() => setIsOpen(false)} />
@@ -106,6 +202,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             />
             {/* <Link
+<<<<<<< HEAD
               to="/register"
               className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
             <Link
@@ -182,14 +279,93 @@ const Navbar = () => {
                     Login
                   </NavLink> */}
                   <Link
+=======
+>>>>>>> 5869f83 (backend in register)
               to="/register"
               className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
               onClick={() => setIsOpen(false)}
             >Login / Signup
+<<<<<<< HEAD
+=======
+            </Link> */}
+
+            {loggedIn ? (
+              <>
+                {/* Hide profile image on small screens */}
+                <img
+                  alt="img"
+                  className="img hidden md:block"
+                  src="/images/dp_logo.jpg"
+                  width="50"
+                  height="50"
+                  style={{ marginRight: "4px", marginLeft: "-20px" }} />
+                {/* <NavDropdown
+                  className="nav-dropdown mr-12 md:block"
+                  title={
+                    <span
+                      style={{
+                        color: "yellow",
+                        fontWeight: 'bold',
+                        fontSize: '19px',
+                        transition: 'color 0.3s ease',
+                        // marginBottom:"30px",marginRight:"30px"
+                      }}
+                    >
+                      {user.name}
+                    </span>
+                  }
+                  id="collasible-nav-dropdown">
+                  {user.usertype === 'individual' ? (
+                    <>
+                      <NavDropdown.Item href="/barberprofile" style={{ color: 'blue', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/registershop" style={{ color: 'blue', fontWeight: 'bold' }}>Register yourself as Waste Collector</NavDropdown.Item>
+                    </>
+                  ) : user.usertype === 'admin' ? (
+                    <>
+                      <NavDropdown.Item href="/customerprofile" style={{ color: 'blue', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/admin" style={{ color: 'green', fontWeight: 'bold' }}>Admin Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/registershop" style={{ color: 'blue', fontWeight: 'bold' }}>Register a Waste Collector</NavDropdown.Item>
+                    </>
+                  ) : (
+                    <>
+                      <NavDropdown.Item href="/customerprofile" style={{ color: 'orange', fontWeight: 'bold' }}>My Profile</NavDropdown.Item>
+                      <NavDropdown.Item href="/nearbyShops" style={{ color: 'orange', fontWeight: 'bold' }}>Book Appointment</NavDropdown.Item>
+                    </>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logout} style={{ color: 'red', fontWeight: 'bold' }}>Logout</NavDropdown.Item>
+                </NavDropdown> */}
+              </>
+            ) : (
+              <>
+                {/* Hide profile image on small screens */}
+                <img
+                  alt="img"
+                  className="img hidden sm:block"
+                  src="/images/dp_logo.jpg"
+                  width="50"
+                  height="50"
+                  style={{ marginRight: 10 }} />
+                <li className="nav-item login-item">
+                  {/* <NavLink
+                    exact="true"
+                    to="/login"
+                    style={{ color: "yellow", marginBottom: "30px", marginRight: "35px" }}
+                    className="nav-links"
+                    onClick={handleClick}>
+                    Login
+                  </NavLink> */}
+                  <Link
+              to="/register"
+              className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+              onClick={() => setIsOpen(false)}
+            >Login / Signup
+>>>>>>> 5869f83 (backend in register)
             </Link>
                 </li>
               </>
             )}
+<<<<<<< HEAD
           </div>
         </div>
 
@@ -210,6 +386,8 @@ const Navbar = () => {
               label="🌱 Donate for Environment"
               onClick={() => setSideDrawerOpen(false)}
             />
+=======
+>>>>>>> 5869f83 (backend in register)
           </div>
         </div>
       </div>
@@ -217,6 +395,7 @@ const Navbar = () => {
   );
 };
 
+<<<<<<< HEAD
 // Enhanced NavLink Component with improved hover effect
 // const NavLink = ({ to, label, onClick }) => (
 //   <Link
@@ -228,5 +407,7 @@ const Navbar = () => {
 //     <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
 //   </Link>
 // );
+=======
+>>>>>>> 5869f83 (backend in register)
 
 export default Navbar;
