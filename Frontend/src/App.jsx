@@ -11,11 +11,14 @@ import Service  from "./pages/Service";
 import Navbar  from './components/Navbar';
 import Footer from "./components/Footer"
 import UserDashboard from "./pages/UserDashboard";
+import SellWaste from './pages/SellWaste';
+import SupportUs from './pages/SupportUs';
+import LearningCentre from "./pages/LearningCentre";
+import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
 function App() {
  
   return (
     <>
-      
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -26,6 +29,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/userDashboard" element={<UserDashboard />} />
+          <Route path="/sellWaste" element={<SellWaste />} />
+          <Route path="/supportUs" element={<SupportUs />} />
+          <Route path="/learningCentre" element={<LearningCentre />} />
+          <Route path="/wasteCollectorDashboard" element={<WasteCollectorDashboard />} />
+
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
         <Footer />
