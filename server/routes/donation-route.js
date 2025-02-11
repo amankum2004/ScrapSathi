@@ -5,3 +5,6 @@ const router = express.Router();
 router.post("/donate", createDonation);
 router.get("/user/:userId", getUserDonations);
 router.get("/all", getAllDonations);
+
+
+module.exports = router;

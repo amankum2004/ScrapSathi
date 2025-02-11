@@ -18,7 +18,6 @@ exports.userOTP=async (req, res) => {
     })
 
     await OTP.create({ email: email.toLowerCase(), otp })
-    // res.status(200).json({ message: "User not found" });
     await mailOtp(otp, email.toLowerCase())
     res.status(200).json({
       success: true,

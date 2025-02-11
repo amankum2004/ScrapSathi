@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         default: "individual",
         enum: ['individual', 'organization','waste-collector','recycle-company', 'admin']
+    },
+    termsAccepted: {
+        type: Boolean,
+        required: true
     }
 });
 

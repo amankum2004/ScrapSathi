@@ -2,7 +2,6 @@ import { useState } from 'react';
 import React from "react";
 import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
@@ -11,12 +10,14 @@ import Service  from "./pages/Service";
 import Navbar  from './components/Navbar';
 import Footer from "./components/Footer"
 import UserDashboard from "./pages/UserDashboard";
+import { LoginProvider } from './components/LoginContext';
+
 function App() {
  
   return (
     <>
-      
-      <BrowserRouter>
+    <BrowserRouter>
+      <LoginProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,7 +30,8 @@ function App() {
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </LoginProvider>
+    </BrowserRouter>
     </>
   );
 }
