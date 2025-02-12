@@ -1,6 +1,10 @@
 const User = require("../../model/user/user-model")
 const bcrypt = require("bcrypt")
+<<<<<<< HEAD
 const OTP = require("../../model/user/otp-model")
+=======
+// const OTP = require("@/models/user/otp-model")
+>>>>>>> a0f88e1 (added base server)
 const jwt = require("jsonwebtoken")
 
 const home = async(req,res) => {
@@ -13,7 +17,11 @@ const home = async(req,res) => {
 
 const register = async(req,res) => {
     try {
+<<<<<<< HEAD
         const { name, phone, password, otp, email, usertype, termsAccepted} = req.body;
+=======
+        const { name, phone, password, otp, email, usertype} = req.body;
+>>>>>>> a0f88e1 (added base server)
         // Check if all details are provided
         if (!name || !email || !password || !otp || !phone || !usertype) {
           return res.status(403).json({
@@ -21,9 +29,12 @@ const register = async(req,res) => {
             message: 'All fields are required',
           });
         }
+<<<<<<< HEAD
         if (!termsAccepted) {
           return res.status(400).json({ message: "You must accept the Terms and Conditions to register." });
         }
+=======
+>>>>>>> a0f88e1 (added base server)
     
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -55,14 +66,21 @@ const register = async(req,res) => {
           email: email.toLowerCase(),
           phone,
           password: hashedPassword,
+<<<<<<< HEAD
           usertype,
           termsAccepted
+=======
+          usertype
+>>>>>>> a0f88e1 (added base server)
         });
         console.log(req.body)
         return res.status(201).json({
           success: true,
           message: 'User registered successfully',
           user: newUser,
+          // message: "Registration successful",
+          // token: await newUser.generateToken(),
+          // userId: newUser._id
         });
       } catch (error) {
         console.log(error.message);
