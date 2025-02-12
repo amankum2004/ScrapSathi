@@ -9,12 +9,6 @@ const router = express.Router();
 router.post("/create", createWasteRequest);
 router.get("/user/:userId", getUserWasteRequests);
 router.get("/all", getAllWasteRequests);
-const { createWasteRequest, getUserWaste } = require("../controller/wasteRequest-controller");
-const { acceptWasteRequest, getActiveBookings, getCollectionHistory } = require("../controller/wasteRequest-controller");
-
-router.post("/create", createWasteRequest);
-router.get("/user/:userId", getUserWasteRequests);
-router.get("/all", getAllWasteRequests);
 
 router.post("/accept/:wasteId", acceptWasteRequest);
 router.get("/active/:collectorId", getActiveBookings);
