@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
 import Swal from "sweetalert2";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
   ArrowPathIcon,
   TrashIcon,
@@ -187,7 +188,7 @@ export default function Register() {
               className="absolute right-3 text-gray-600 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "👁️" : "🙈"}
+              {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
             </span>
           </div>
 
@@ -206,7 +207,7 @@ export default function Register() {
               className="absolute right-3 text-gray-600 cursor-pointer"
               onClick={() => setShowOTP(!showOTP)}
             >
-              {showOTP ? "👁️" : "🙈"}
+              {showOTP ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
             </span>
           </div>
 

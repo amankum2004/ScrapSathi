@@ -11,14 +11,12 @@ import Navbar  from './components/Navbar';
 import Footer from "./components/Footer"
 import UserDashboard from "./pages/UserDashboard";
 import { LoginProvider } from './components/LoginContext';
-
-<<<<<<< HEAD
 import SellWaste from './pages/SellWaste';
 import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
-import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
-=======
->>>>>>> 5869f83 (backend in register)
+// import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
+
+
 function App() {
  
   return (
@@ -37,7 +35,7 @@ function App() {
           <Route path="/sellWaste" element={<SellWaste />} />
           <Route path="/supportUs" element={<SupportUs />} />
           <Route path="/learningCentre" element={<LearningCentre />} />
-          <Route path="/wasteCollectorDashboard" element={<WasteCollectorDashboard />} />
+          {/* <Route path="/wasteCollectorDashboard" element={<WasteCollectorDashboard />} /> */}
 
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>

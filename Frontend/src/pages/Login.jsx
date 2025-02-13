@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
 import Swal from "sweetalert2";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
   ArrowPathIcon,
   TrashIcon,
@@ -119,7 +120,7 @@ export default function Login() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -134,10 +135,29 @@ export default function Login() {
               className="absolute right-3 top-2 cursor-pointer"
               onClick={togglePasswordVisibility}
             >
-              {showPassword ? '👁️' : '🙈'}
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </span>
+          </div> */}
+
+          {/* Password Input with Eye Icon */}
+          <div className="mb-4 flex items-center border rounded-lg p-3 relative">
+            <input
+              className="w-full focus:outline-none"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInput}
+              required
+            />
+            <span
+              className="absolute right-3 text-gray-600 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
             </span>
           </div>
-          
+
           <button
             type="submit"
             className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-700 transition duration-300"

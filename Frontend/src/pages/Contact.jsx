@@ -1,7 +1,62 @@
 import React from "react";
+import { useLogin } from "../components/LoginContext";
+import { api } from "../utils/api";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
+const defaultContactFormData = {
+  name: "",
+  email: "",
+  message: "",
+};
+
 function ContactUs() {
+  const [contact, setContact] = useState(defaultContactFormData);
+  const [userData, setUserData] = useState(true);
+  const { user } = useLogin();
+
+  if (userData && user) {
+    setContact({
+      name: user.name,
+      email: user.email,
+      message: "",
+    });
+    setUserData(false);
+  }
+
+  const navigate = useNavigate();
+
+  // handling the input values
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setContact({
+      ...contact,
+      [name]: value,
+    });
+  };
+
+  // handling the form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post("/form/contact", contact);
+      if (response) {
+        setContact(defaultContactFormData);
+        Swal.fire({
+          title: "Success",
+          text: "Message sent successfully",
+          icon: "success",
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
@@ -25,15 +80,21 @@ function ContactUs() {
             get back to you as soon as possible.
           </p>
 
-          <form className="max-w-3xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-50 p-8 rounded-lg shadow-xl">
+          <form onSubmit={handleSubmit} className="max-w-3xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-50 p-8 rounded-lg shadow-xl">
             {/* Name Input */}
             <div>
               <label className="block text-left text-black">Your Name</label>
               <input
                 type="text"
-                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Your Full Name"
+                placeholder="Name"
+                name="name"
+                id="name"
+                autoComplete="off"
+                value={contact.name}
+                // onChange={handleInput}
+                readOnly
                 required
+                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
@@ -42,9 +103,15 @@ function ContactUs() {
               <label className="block text-left text-black">Your Email</label>
               <input
                 type="email"
-                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Your Email Address"
+                placeholder="Email"
+                name="email"
+                id="email"
+                autoComplete="off"
+                value={contact.email}
+                // onChange={handleInput}
+                readOnly
                 required
+                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
@@ -53,9 +120,14 @@ function ContactUs() {
               <label className="block text-left text-black">Your Message</label>
               <textarea
                 rows="4"
-                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Write your message here"
+                name="message"
+                placeholder="Message"
+                id="message"
+                autoComplete="off"
+                value={contact.message}
+                onChange={handleInput}
                 required
+                className="w-full mt-2 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               ></textarea>
             </div>
 
