@@ -51,6 +51,7 @@ export default function Register() {
       }
     } catch (err) {
       Swal.fire({ title: "Error", text: "Email already registered", icon: "error" });
+      console.log(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -168,8 +169,10 @@ export default function Register() {
               required
             >
               <option value="individual">User Type Select</option>
-              <option value="individual">Individual</option>
-              <option value="corporate">Corporate/Organization</option>
+              <option value="individual">Individual/Customer</option>
+              <option value="organization">Corporate/Organization</option>
+              <option value="waste-collector">Waste Collector</option>
+              <option value="recycle-company">Recycle Company</option>
             </select>
           </div>
 
