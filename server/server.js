@@ -1,12 +1,12 @@
 require('module-alias/register')
 const express = require("express")
-const { config } = require('dotenv')
+const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const bodyParser = require("body-parser")
 const cookieParser = require('cookie-parser')
 const { createServer } = require("http");
 const cors = require("cors")
-config({ path: './.env' })
+dotenv.config();
 const app = express();
 const https = createServer(app);
 

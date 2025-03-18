@@ -14,7 +14,7 @@ import { LoginProvider } from './components/LoginContext';
 import SellWaste from './pages/SellWaste';
 import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
-// import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
+import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
 
 
 function App() {
@@ -31,11 +31,11 @@ function App() {
           <Route path="/services" element={<Service />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/userDashboard" element={<UserDashboard />} />
+          <Route path="/individualProfile" element={<UserDashboard />} />
           <Route path="/sellWaste" element={<SellWaste />} />
           <Route path="/supportUs" element={<SupportUs />} />
           <Route path="/learningCentre" element={<LearningCentre />} />
-          {/* <Route path="/wasteCollectorDashboard" element={<WasteCollectorDashboard />} /> */}
+          <Route path="/wasteCollectorProfile" element={<WasteCollectorDashboard />} />
 
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>

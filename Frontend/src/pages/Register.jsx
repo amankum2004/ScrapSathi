@@ -64,9 +64,7 @@ export default function Register() {
     }
     try {
       // await api.post("/otp/user-otp", { email: registerData.email });
-      const res = await api.post(`/otp/user-otp`, {email:registerData.email},{withCredentials: true,headers: {
-        "Content-Type": "application/json",
-    },});
+      const res = await api.post(`/otp/user-otp`, {email:registerData.email},{withCredentials: true,headers: {"Content-Type": "application/json",},});
       console.log(res.data);
       if (res.status === 200) {
         setIsSubmitting(false)

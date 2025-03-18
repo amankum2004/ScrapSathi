@@ -7,6 +7,7 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
   },
+  degug:true
 });
 
 // async function sendConfirmationEmail(customerEmail, customerName, shopName, location, selectedTimeSlot) {
@@ -54,7 +55,6 @@ const mailOtp = async (otp, email, subject = 'OTP') => {
 }
 
 module.exports = {
-  mailOtp,
-//   sendConfirmationEmail
+  mailOtp
 }
 
