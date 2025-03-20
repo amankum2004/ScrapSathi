@@ -15,6 +15,8 @@ import SellWaste from './pages/SellWaste';
 import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
 import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
+import RegisterWasteCollector from './pages/WasteCollectorRegistration';
+import EditProfile from './pages/UserProfile';
 
 
 function App() {
@@ -38,6 +40,14 @@ function App() {
             <Route
               path="/wasteCollectorProfile"
               element={<WasteCollectorDashboard />}
+            />
+            <Route
+              path="/wasteCollectorRegistration"
+              element={<RegisterWasteCollector/>}
+            />
+            <Route
+              path='/EditProfile'
+              element={<EditProfile/> }
             />
 
             {/* <Route path="*" element={<Error />} /> */}
