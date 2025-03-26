@@ -16,9 +16,9 @@ import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
 import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
 import RegisterWasteCollector from './pages/WasteCollectorRegistration';
-import EditProfile from './pages/UserProfile';
-
-
+import EditProfile from './pages/EditProfile';
+import ProfileView from './pages/UserProfile';
+import AdvancedDashboard from './pages/AdvancedDashboard'
 function App() {
  
   return (
@@ -43,12 +43,11 @@ function App() {
             />
             <Route
               path="/wasteCollectorRegistration"
-              element={<RegisterWasteCollector/>}
+              element={<RegisterWasteCollector />}
             />
-            <Route
-              path='/EditProfile'
-              element={<EditProfile/> }
-            />
+            <Route path="/EditProfile" element={<EditProfile />} />
+            <Route path="/individualProfile" element={<ProfileView />} />
+            <Route path="/AdvancedDashboard" element={<AdvancedDashboard/>} />
 
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
