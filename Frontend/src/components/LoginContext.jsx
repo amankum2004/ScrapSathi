@@ -11,6 +11,7 @@ export const LoginProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(true)
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
+  
   useEffect(() => {
     try {
       const token = JSON.parse(localStorage.getItem('token'))
@@ -36,6 +37,7 @@ export const LoginProvider = ({ children }) => {
     localStorage.setItem('token', JSON.stringify(token))
     setLoggedIn(true)
   }
+  
   const logout = () => {
     localStorage.removeItem('token')
     setLoggedIn(false)

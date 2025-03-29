@@ -44,6 +44,23 @@ const transporter = nodemailer.createTransport({
 //   return transporter.sendMail(mailOptions);
 // }
 
+// Send Confirmation Email
+const sendConfirmationEmail = async (userEmail, wasteCollector) => {
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: userEmail,
+    subject: "Waste Collection Request Accepted",
+    html: `<p>Your waste collection request has been accepted.</p>
+           <p>Waste Collector Details:</p>
+           <ul>
+              <li>Name: ${wasteCollector.name}</li>
+              <li>Phone: ${wasteCollector.phone}</li>
+              <li>Email: ${wasteCollector.email}</li>
+           </ul>`,
+  };
+  await transporter.sendMail(mailOptions);
+};
+
 const mailOtp = async (otp, email, subject = 'OTP') => {
   const mailOptions = {
     from: process.env.EMAIL,
@@ -55,6 +72,7 @@ const mailOtp = async (otp, email, subject = 'OTP') => {
 }
 
 module.exports = {
-  mailOtp
+  mailOtp,
+  sendConfirmationEmail
 }
 

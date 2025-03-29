@@ -11,6 +11,7 @@ import Navbar  from './components/Navbar';
 import Footer from "./components/Footer"
 import UserDashboard from "./pages/UserDashboard";
 import { LoginProvider } from './components/LoginContext';
+import { Error } from './pages/Error';
 import SellWaste from './pages/SellWaste';
 import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
@@ -31,13 +32,13 @@ function App() {
           <Route path="/services" element={<Service />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/individualProfile" element={<UserDashboard />} />
+          <Route path="/individualDashboard" element={<UserDashboard />} />
           <Route path="/sellWaste" element={<SellWaste />} />
           <Route path="/supportUs" element={<SupportUs />} />
           <Route path="/learningCentre" element={<LearningCentre />} />
-          <Route path="/wasteCollectorProfile" element={<WasteCollectorDashboard />} />
+          <Route path="/wasteCollector-requests" element={<WasteCollectorDashboard />} />
 
-          {/* <Route path="*" element={<Error />} /> */}
+          <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
       </LoginProvider>
