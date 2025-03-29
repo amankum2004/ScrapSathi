@@ -78,14 +78,15 @@ const Navbar = ({ to, label, onClick }) => {
                   width="50"
                   height="50"
                 />
-                <li className="nav-item login-item">
+                <ul className="nav-item login-item">
                   <Link
                     to="/login"
                     className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
                     onClick={() => setIsOpen(false)}
-                  >Login / Signup
+                  >
+                    Login / Signup
                   </Link>
-                </li>
+                </ul>
               </>
             )}
 
@@ -119,10 +120,11 @@ const Navbar = ({ to, label, onClick }) => {
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${isOpen
-            ? "max-h-96 opacity-100 translate-y-0"
-            : "max-h-0 opacity-0 -translate-y-4"
-            }`}
+          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isOpen
+              ? "max-h-96 opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-4"
+          }`}
         >
           <div className="flex flex-col items-center space-y-5 py-4">
             <NavLink to="/" label="Home" onClick={() => setIsOpen(false)} />
@@ -162,14 +164,15 @@ const Navbar = ({ to, label, onClick }) => {
                   width="50"
                   height="50"
                 />
-                <li className="nav-item login-item">
+                <ul className="nav-item login-item">
                   <Link
                     to="/login"
                     className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
                     onClick={() => setIsOpen(false)}
-                  >Login / Signup
+                  >
+                    Login / Signup
                   </Link>
-                </li>
+                </ul>
               </>
             )}
           </div>
@@ -177,14 +180,18 @@ const Navbar = ({ to, label, onClick }) => {
 
         {/* Side Drawer for extra links (visible on desktop) */}
         <div
-          className={`absolute top-[67px] right-0 w-64 h-full transform transition-transform duration-300 ease-in-out z-40 ${sideDrawerOpen ? "translate-x-0" : "translate-x-full"
-            }`}
+          className={`absolute top-[67px] right-0 w-64 h-full transform transition-transform duration-300 ease-in-out z-40 ${
+            sideDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           <div className="bg-white min-h-screen flex flex-col items-center space-y-5 py-4">
             {loggedIn ? (
               <>
-                <span className="text-green-500 italic text-lg font-bold mx-1">{user.name}</span>
+                <span className="text-green-500 italic text-lg font-bold mx-1">
+                  {user.name}
+                </span>
 
+<<<<<<< HEAD
                 {user.usertype === 'individual' ? (
                     <>
                       <NavLink to="/individualDashboard" label="Profile" onClick={() => setSideDrawerOpen(false)} />
@@ -208,19 +215,107 @@ const Navbar = ({ to, label, onClick }) => {
                     <NavLink to="/recycleCompanyDemand" label="Raise your Demand" onClick={() => setSideDrawerOpen(false)} />
                     <NavLink to="/recycleCompanyRegistration" label="Register your Company" onClick={() => setSideDrawerOpen(false)} />
                     </>
+=======
+                {user.usertype === "individual" ? (
+                  <>
+                    <NavLink
+                      to="/individualProfile"
+                      label="Profile"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteRequest"
+                      label="Waste Collector Request"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                  </>
+                ) : user.usertype === "waste-collector" ? (
+                  <>
+                    <NavLink
+                      to="/requests"
+                      label="Requests"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteCollectorProfile"
+                      label="Profile"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteCollectorRegistration"
+                      label="Register as waste collector"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                  </>
+                ) : user.usertype === "organization" ? (
+                  <>
+                    <NavLink
+                      to="/organizationProfile"
+                      label="Profile"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteRequest"
+                      label="Waste Collector Request"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/organizationRegistration"
+                      label="Register your organization"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                  </>
+                ) : user.usertype === "recycle-company" ? (
+                  <>
+                    <NavLink
+                      to="/recycleCompanyProfile"
+                      label="Profile"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/recycleCompanyDemand"
+                      label="Raise your Demand"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/recycleCompanyRegistration"
+                      label="Register your Company"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                  </>
+>>>>>>> merge-branch
                 ) : (
                   <>
-                  <NavLink to="/adminProfile" label="Profile" onClick={() => setSideDrawerOpen(false)} />
-                  <NavLink to="/wasteRequest" label="Waste Collector Request" onClick={() => setSideDrawerOpen(false)} />
-                  <NavLink to="/wasteCollectorRegistration" label="Register as waste collector" onClick={() => setSideDrawerOpen(false)} />
-                  <NavLink to="/organizationRegistration" label="Register your organization" onClick={() => setSideDrawerOpen(false)} />
-                  <NavLink to="/recycleCompanyRegistration" label="Register your Company" onClick={() => setSideDrawerOpen(false)} />
+                    <NavLink
+                      to="/adminProfile"
+                      label="Profile"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteRequest"
+                      label="Waste Collector Request"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/wasteCollectorRegistration"
+                      label="Register as waste collector"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/organizationRegistration"
+                      label="Register your organization"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
+                    <NavLink
+                      to="/recycleCompanyRegistration"
+                      label="Register your Company"
+                      onClick={() => setSideDrawerOpen(false)}
+                    />
                   </>
                 )}
               </>
-
-            ): (
-              'Welcome to ScrapSathi'
+            ) : (
+              "Welcome to ScrapSathi"
             )}
             <NavLink
               to="/learning"
@@ -235,25 +330,21 @@ const Navbar = ({ to, label, onClick }) => {
 
             {loggedIn ? (
               <>
-                <NavLink
-                  to="/login"
-                  label="LogOut"
-                  onClick={logout}
-                />
+                <NavLink to="/login" label="LogOut" onClick={logout} />
               </>
             ) : (
               <>
-                <li className="nav-item login-item">
+                <ul className="nav-item login-item">
                   <Link
                     to="/login"
                     className="bg-gradient-to-r from-green-600 to-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center"
                     onClick={() => setIsOpen(false)}
-                  >Login / Signup
+                  >
+                    Login / Signup
                   </Link>
-                </li>
+                </ul>
               </>
             )}
-
           </div>
         </div>
       </div>
@@ -277,6 +368,5 @@ const Navbar = ({ to, label, onClick }) => {
 //     <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-green-600 to-blue-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
 //   </Link>
 // );
-
 
 export default Navbar;

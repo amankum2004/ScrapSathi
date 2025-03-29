@@ -89,8 +89,14 @@ export default function RegisterWasteRoles({
       return;
     }
     try {
-      // await api.post("/otp/user-otp", { email: registerData.email });
-      const res = await api.post(`/otp/user-otp`, {email:registerData.email},{withCredentials: true,headers: {"Content-Type": "application/json",},});
+      const res = await api.post(
+        `/otp/user-otp`,
+        { email: registerData.email },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       console.log(res.data);
       if (res.status === 200) {
         setIsSubmitting(false);
@@ -104,39 +110,40 @@ export default function RegisterWasteRoles({
       console.log(err);
       Swal.fire({ title: "Error", text: "Failed to send OTP", icon: "error" });
     }
-  };
-
-  const handleVerifyOTP = async () => {
-    if (!registerData.otp) {
-      alert("Please enter OTP");
-      return;
-    }
-
-    try {
-      const response = await fetch("https://your-backend.com/verify-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: registerData.email, // Using email for verification
-          otp: registerData.otp,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert("OTP Verified Successfully");
-        setRegisterData({ ...registerData, otpVerified: true }); // Mark as verified
-      } else {
-        alert("Invalid OTP. Please try again.");
+    };
+    
+    const handleVerifyOTP = async () => {
+      if (!registerData.otp) {
+        alert("Please enter OTP");
+        return;
       }
-    } catch (error) {
-      console.error("Error verifying OTP:", error);
-      alert("Something went wrong. Try again later.");
-    }
-  };
+
+      try {
+        const response = await fetch("https://your-backend.com/verify-otp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: registerData.email, // Using email for verification
+            otp: registerData.otp,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert("OTP Verified Successfully");
+          setRegisterData({ ...registerData, otpVerified: true }); // Mark as verified
+        } else {
+          alert("Invalid OTP. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error verifying OTP:", error);
+        alert("Something went wrong. Try again later.");
+      }
+    };
+
 
   // Icons to be scattered
   const icons = [
