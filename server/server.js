@@ -22,8 +22,8 @@ mongoose
   const corsOptions = {
     origin: (origin, callback) => {
       const allowedOrigins = [
-        'http://localhost:5173', 
         'https://scrap-sathi.vercel.app/', 
+        'http://localhost:5173', 
         'https://scrap-sathi-amankum2004s-projects.vercel.app/', 
         'https://scrap-sathi-git-main-amankum2004s-projects.vercel.app/'
         ];
@@ -66,8 +66,19 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json());
 
+app.use((req, _, next) => {
+  if (!req.url.match(/(assets|images|index\.html|.*\.(svg|png|jpg|jpeg))$/)) {
+    console.log(`${req.method} ${req.url}`)
+  }
+  next()
+})
+
 
 app.use('/api', apiRoute)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Frontend/dist', 'index.html'))
+})
 
 https.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
