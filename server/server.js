@@ -23,7 +23,7 @@ mongoose
     origin: (origin, callback) => {
       const allowedOrigins = [
         'http://localhost:5173', 
-        'https://scrap-sathi.vercel.app/api', 
+        'https://scrap-sathi.vercel.app/', 
         'https://scrap-sathi-amankum2004s-projects.vercel.app/', 
         'https://scrap-sathi-git-main-amankum2004s-projects.vercel.app/'
         ];
