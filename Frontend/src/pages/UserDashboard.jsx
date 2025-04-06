@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import {
   CalendarIcon,
   DocumentTextIcon,
@@ -6,6 +6,8 @@ import {
   CurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
 import { Pie } from "react-chartjs-2";
+import { useLogin } from "../components/LoginContext";
+import { api } from "../utils/api";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 // Register chart components
@@ -13,100 +15,173 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [dashboardData, setDashboardData] = useState({
-    upcomingCollection: [
-      {
-        date: "15-12-2-2025",
-        time: "10:00 AM - 12:00 PM",
-        location: "Sector 23",
-        collector: {
-          name: "John Doe",
-          contact: "+91 123 456 7890",
-          vehicle: "Truck",
-          photo: "https://www.example.com/john-photo.jpg", // Placeholder photo URL
-        },
-      },
-      {
-        date: "2025-02-20",
-        time: "2:00 PM - 4:00 PM",
-        location: "Sector 15",
-        collector: {
-          name: "Jane Smith",
-          contact: "+91 987 654 3210",
-          vehicle: "Van",
-          photo: "https://www.example.com/jane-photo.jpg", // Placeholder photo URL
-        },
-      },
-    ],
-    wasteHistory: [
-      {
-        date: "2025-02-05",
-        type: "Plastic",
-        weight: "2 kg",
-        moneyEarned: "₹50",
-        disposalMethod: "Recycled",
-      },
-      {
-        date: "2025-02-10",
-        type: "Paper",
-        weight: "1.5 kg",
-        moneyEarned: "₹30",
-        disposalMethod: "Recycled",
-      },
-      {
-        date: "2025-02-12",
-        type: "Glass",
-        weight: "3 kg",
-        moneyEarned: "₹60",
-        disposalMethod: "Recycled",
-      },
-      {
-        date: "2025-02-13",
-        type: "Plastic",
-        weight: "1 kg",
-        moneyEarned: "₹20",
-        disposalMethod: "Recycled",
-      },
-      {
-        date: "2025-02-14",
-        type: "Metal",
-        weight: "1.2 kg",
-        moneyEarned: "₹25",
-        disposalMethod: "Recycled",
-      },
-    ],
-    environmentalImpact: {
-      totalWasteRecycled: "5 kg",
-      carbonOffset: "12 kg CO2",
-      treesSaved: "3 Trees",
-      moneyEarned: "₹80",
-    },
-  });
+  // const [dashboardData, setDashboardData] = useState({
+  //   upcomingCollection: [
+  //     {
+  //       date: "15-12-2-2025",
+  //       time: "10:00 AM - 12:00 PM",
+  //       location: "Sector 23",
+  //       collector: {
+  //         name: "John Doe",
+  //         contact: "+91 123 456 7890",
+  //         vehicle: "Truck",
+  //         photo: "https://www.example.com/john-photo.jpg", // Placeholder photo URL
+  //       },
+  //     },
+  //     {
+  //       date: "2025-02-20",
+  //       time: "2:00 PM - 4:00 PM",
+  //       location: "Sector 15",
+  //       collector: {
+  //         name: "Jane Smith",
+  //         contact: "+91 987 654 3210",
+  //         vehicle: "Van",
+  //         photo: "https://www.example.com/jane-photo.jpg", // Placeholder photo URL
+  //       },
+  //     },
+  //   ],
+  //   wasteHistory: [
+  //     {
+  //       date: "2025-02-05",
+  //       type: "Plastic",
+  //       weight: "2 kg",
+  //       moneyEarned: "₹50",
+  //       disposalMethod: "Recycled",
+  //     },
+  //     {
+  //       date: "2025-02-10",
+  //       type: "Paper",
+  //       weight: "1.5 kg",
+  //       moneyEarned: "₹30",
+  //       disposalMethod: "Recycled",
+  //     },
+  //     {
+  //       date: "2025-02-12",
+  //       type: "Glass",
+  //       weight: "3 kg",
+  //       moneyEarned: "₹60",
+  //       disposalMethod: "Recycled",
+  //     },
+  //     {
+  //       date: "2025-02-13",
+  //       type: "Plastic",
+  //       weight: "1 kg",
+  //       moneyEarned: "₹20",
+  //       disposalMethod: "Recycled",
+  //     },
+  //     {
+  //       date: "2025-02-14",
+  //       type: "Metal",
+  //       weight: "1.2 kg",
+  //       moneyEarned: "₹25",
+  //       disposalMethod: "Recycled",
+  //     },
+  //   ],
+  //   environmentalImpact: {
+  //     totalWasteRecycled: "5 kg",
+  //     carbonOffset: "12 kg CO2",
+  //     treesSaved: "3 Trees",
+  //     moneyEarned: "₹80",
+  //   },
+  // });
 
   // Pie Chart Data for User Contribution
-  const chartData = {
-    labels: ["Waste Recycled", "Money Earned", "Carbon Offset", "Trees Saved"],
-    datasets: [
-      {
-        data: [
-          parseFloat(dashboardData.environmentalImpact.totalWasteRecycled),
-          parseFloat(
-            dashboardData.environmentalImpact.moneyEarned.replace("₹", "")
-          ),
-          parseFloat(dashboardData.environmentalImpact.carbonOffset),
-          parseFloat(dashboardData.environmentalImpact.treesSaved),
-        ],
-        backgroundColor: ["#4CAF50", "#FF9800", "#2196F3", "#9C27B0"],
-      },
-    ],
-  };
+  const {user} = useLogin();
+  const [dashboardData, setDashboardData] = useState({
+    upcomingCollection: [],
+    wasteHistory: [],
+    environmentalImpact: {
+      totalWasteRecycled: "0 kg",
+      carbonOffset: "0 kg CO2",
+      treesSaved: "0 Trees",
+      moneyEarned: "₹0",
+    },
+  });
+  const userId = user.userId; // Replace with actual user ID
+  
+  
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const response = await api.get(`/pickup/user-requests/${userId}`);
+        const requests = response.data;
 
-  // Filtered Waste Disposal History
-  const filteredHistory = dashboardData.wasteHistory.filter((history) =>
-    history.type.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+        // Process data for frontend display
+        const upcomingCollection = requests
+          .filter((req) => req.status !== "completed")
+          .map((req) => ({
+            date: new Date(req.createdAt).toLocaleDateString(),
+            time: req.preferredTimeSlot,
+            location: req.address,
+            collector: {
+              name: req.wasteCollector?.name || "Pending",
+              contact: req.wasteCollector?.phone || "N/A",
+              vehicle: req.wasteCollector?.vehicle || "Cycle",
+              photo: req.photo || "https://via.placeholder.com/150",
+            },
+          }));
 
-  return (
+          const wasteHistory = requests
+          .filter((req) => req.status === "completed")
+          .map((req) => ({
+            date: new Date(req.createdAt).toLocaleDateString(),
+            type: req.wasteType,
+            weight: `${req.quantity} kg`,
+            moneyEarned: `₹${req.quantity * 10}`, // Example calculation
+            disposalMethod: "Recycled",
+          }));
+          
+          // Calculate environmental impact
+          const totalWasteRecycled = wasteHistory.reduce(
+            (acc, item) => acc + parseFloat(item.weight),
+            0
+          );
+          const moneyEarned = wasteHistory.reduce(
+            (acc, item) => acc + parseFloat(item.moneyEarned.replace("₹", "")),
+            0
+          );
+          
+          setDashboardData({
+            upcomingCollection,
+            wasteHistory,
+            environmentalImpact: {
+              totalWasteRecycled: `${totalWasteRecycled} kg`,
+              carbonOffset: `${totalWasteRecycled * 2.5} kg CO2`, // Example conversion
+              treesSaved: `${Math.floor(totalWasteRecycled / 5)} Trees`,
+              moneyEarned: `₹${moneyEarned}`,
+            },
+          });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      
+      fetchDashboardData();
+    }, [userId]);
+    
+    const chartData = {
+      labels: ["Waste Recycled", "Money Earned", "Carbon Offset", "Trees Saved"],
+      datasets: [
+        {
+          data: [
+            parseFloat(dashboardData.environmentalImpact.totalWasteRecycled),
+            parseFloat(
+              dashboardData.environmentalImpact.moneyEarned.replace("₹", "")
+            ),
+            parseFloat(dashboardData.environmentalImpact.carbonOffset),
+            parseFloat(dashboardData.environmentalImpact.treesSaved),
+          ],
+          backgroundColor: ["#4CAF50", "#FF9800", "#2196F3", "#9C27B0"],
+        },
+      ],
+    };
+    
+    // Filtered Waste Disposal History
+    const filteredHistory = dashboardData.wasteHistory.filter((history) =>
+      history.type.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return (
     <div className="bg-gradient-to-r from-green-500 to-blue-500 min-h-screen p-8 mt-20">
       {/* Dashboard Header */}
       <div className="text-center text-white mb-8">

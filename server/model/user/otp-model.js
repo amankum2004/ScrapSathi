@@ -9,11 +9,9 @@ const otpSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    expires: 60 * 5, // The document will be automatically deleted after 5 minutes of its creation time
-  },
+  expiresAt: { type: Date,
+      required: true, 
+      default: () => Date.now() + 10 * 60 * 1000 }, // Expires in 10 minutes
 });
 
 otpSchema.pre("save", async function (next) {

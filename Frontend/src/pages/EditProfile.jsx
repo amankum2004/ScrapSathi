@@ -1,38 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowPathIcon,
   TrashIcon,
   ArchiveBoxIcon,
   HandThumbUpIcon,
 } from "@heroicons/react/24/outline";
+import { api } from "../utils/api";
+import Swal from "sweetalert2";
 
 export default function EditProfile() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    name: "kajdf",
-    email: "kldjf@example.com",
-    phone: "984u",
-    type: "individual", // "individual", "waste-collector", "big-organization", "recycle-companies"
-    businessName: "",
-    licenseNumber: "",
-    address: "oaisdjfoajsdf",
-    profilePhoto: "https://via.placeholder.com/150", // Default profile photo
+    name: "",
+    email: "",
+    phone: "",
+    userType: "individual",
+    address: "",
+    profilePhoto: "/images/dp_logo.jpg",
+    companyName: "",
+    businessLicenseNo: "",
+    wasteType: "",
+    recyclingCapabilities: "",
   });
-  const [saving, setSaving] = useState(false);
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [emailError, setEmailError] = useState(""); // <mark>UPDATED: Email error state added</mark>
+  const [saving, setSaving] = useState(false);
 
-  // const handleChange = (e) => {
-  //   if (e.target.name === "email") {
-  //     setIsOtpVerified(false); // <mark>UPDATED: Reset OTP verification when email changes</mark>
-  //   }
-  //   setUserData({ ...userData, [e.target.name]: e.target.value });
-  // };
+  useEffect(() => {
+    // Fetch user data from the backend
+    const fetchUserData = async () => {
+      try {
+        const response = await api.get('/auth/profile', {
+          withCredentials: true, // Send cookies if using authentication
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored in localStorage
+          },
+        });
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const handleChange = (e) => {
-    // If the email is changed, require new verification.
     if (e.target.name === "email") {
       setIsOtpVerified(false);
     }
@@ -50,34 +67,45 @@ export default function EditProfile() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const sendOtp = async () => {
+    try {
+      await api.post("/otp/send-otp", { email: userData.email });
+      setIsOtpSent(true);
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+    }
+  };
+
+  const verifyOtp = async () => {
+    try {
+      const response = await api.post("/otp/verify-otp", { email: userData.email, otp: otp });
+      if (response.data.success) {
+        setIsOtpVerified(true);
+      }
+    } catch (error) {
+      console.error("OTP verification failed:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Save button is only enabled when OTP is verified.
     if (!isOtpVerified) return;
     setSaving(true);
-    setTimeout(() => setSaving(false), 1000); // Simulate API call
-  };
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const sendOtp = () => {
-    if (!validateEmail(userData.email)) {
-      setEmailError("Please enter a valid email address."); // <mark>UPDATED: Set error message if invalid</mark>
-      return;
+    try {
+      // await api.patch("/auth/update-profile", userData);
+      const response = await api.patch("/auth/update-profile", {email: userData.email,...userData});
+      if (response) {
+       Swal.fire({title: "Success",text: "Updated Successfully",icon: "success",});
+        navigate('/profile')
     }
-    setEmailError(""); // <mark>UPDATED: Clear error message if valid</mark>
-    setIsOtpSent(true);
-    setOtp(""); // Simulated OTP generation
-    setIsOtpVerified(false);
-  };
-
-  const verifyOtp = () => {
-    if (otp === "123456") {
-      setIsOtpVerified(true);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    } finally {
+      setSaving(false);
     }
   };
+
+
 
   const icons = [
     <ArrowPathIcon className="w-16 h-16 text-white opacity-40" />,
@@ -88,14 +116,14 @@ export default function EditProfile() {
 
   // Determine whether additional fields should be shown based on user type.
   const showBusinessFields =
-    userData.type === "waste-collector" ||
-    userData.type === "big-organization" ||
-    userData.type === "recycle-companies";
+    userData.userType === "waste-collector" ||
+    userData.userType === "big-organization" ||
+    userData.userType === "recycle-companies";
 
   // For "big-organization" and "recycle-companies", businessName and licenseNumber are required.
   const isBusinessRequired =
-    userData.type === "big-organization" ||
-    userData.type === "recycle-companies";
+    userData.userType === "big-organization" ||
+    userData.userType === "recycle-companies";
 
   return (
     <div className="relative bg-gradient-to-r from-green-500 to-blue-500 animate-gradientBackground flex items-center justify-center min-h-screen">
@@ -118,7 +146,7 @@ export default function EditProfile() {
         <div className="flex flex-col items-center mb-4 relative">
           <div className="relative">
             <img
-              src={userData.profilePhoto}
+              src={userData.profilePhoto ||  "/images/dp_logo.jpg"}
               alt="Profile"
               className="w-24 h-24 rounded-full border-2 border-gray-300 shadow-md"
             />
@@ -143,7 +171,7 @@ export default function EditProfile() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* User type selection */}
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <label htmlFor="type" className="mb-1 font-medium text-gray-600">
               User Type
             </label>
@@ -159,8 +187,17 @@ export default function EditProfile() {
               <option value="big-organization">Big Organization</option>
               <option value="recycle-companies">Recycle Companies</option>
             </select>
-          </div>
+          </div> */}
 
+          <input
+            type="text"
+            name="type"
+            value={userData.userType}
+            onChange={handleChange}
+            placeholder="UserType"
+            className="w-full p-3 border rounded bg-white shadow-sm"
+          />
+          
           <input
             type="text"
             name="name"
@@ -205,11 +242,10 @@ export default function EditProfile() {
                   type="button"
                   onClick={verifyOtp}
                   disabled={isOtpVerified}
-                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-sm font-semibold ${
-                    isOtpVerified
+                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-sm font-semibold ${isOtpVerified
                       ? "text-gray-400 cursor-default"
                       : "text-green-600 hover:text-green-800"
-                  }`}
+                    }`}
                 >
                   {isOtpVerified ? "Verified" : "Verify OTP"}
                 </button>
@@ -272,3 +308,6 @@ export default function EditProfile() {
     </div>
   );
 }
+
+
+

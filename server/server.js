@@ -1,12 +1,12 @@
 require('module-alias/register')
 const express = require("express")
-const { config } = require('dotenv')
+const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const bodyParser = require("body-parser")
 const cookieParser = require('cookie-parser')
 const { createServer } = require("http");
 const cors = require("cors")
-config({ path: './.env' })
+dotenv.config();
 const app = express();
 const https = createServer(app);
 
@@ -22,7 +22,7 @@ mongoose
 app.use(cors({
     origin: "http://localhost:5173", // Replace with your frontend URL
     credentials: true, // Allow credentials (cookies, sessions, etc.)
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allow necessary methods
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'], // Allow necessary methods
     allowedHeaders: ["Content-Type", "Authorization"] // Allow necessary headers
 }));
 

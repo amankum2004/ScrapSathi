@@ -37,7 +37,7 @@ function About() {
           <p className="mt-4 text-lg text-gray-600">
             A group of passionate individuals working towards a cleaner future.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 mt-12">
             {/* Team Member 1 */}
             <div className="bg-white shadow-lg rounded-lg p-8">
               <img
@@ -46,7 +46,7 @@ function About() {
                 alt="Team Member"
               />
               <h3 className="text-xl font-semibold text-gray-800 mt-4">
-                John Doe
+                Aman Kumar
               </h3>
               <p className="text-gray-600">Co-Founder & CEO</p>
             </div>
@@ -59,22 +59,9 @@ function About() {
                 alt="Team Member"
               />
               <h3 className="text-xl font-semibold text-gray-800 mt-4">
-                Jane Smith
+                Pranav Raj
               </h3>
-              <p className="text-gray-600">Co-Founder & COO</p>
-            </div>
-
-            {/* Team Member 3 */}
-            <div className="bg-white shadow-lg rounded-lg p-8">
-              <img
-                className="w-24 h-24 rounded-full mx-auto"
-                src="https://via.placeholder.com/150"
-                alt="Team Member"
-              />
-              <h3 className="text-xl font-semibold text-gray-800 mt-4">
-                Emily White
-              </h3>
-              <p className="text-gray-600">Head of Marketing</p>
+              <p className="text-gray-600">Co-Founder & CEO</p>
             </div>
           </div>
         </div>

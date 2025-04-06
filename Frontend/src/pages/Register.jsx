@@ -16,11 +16,13 @@ export default function RegisterWasteRoles({
   const [userType, setUserType] = useState(propUserType); // Initialize state properly
 
   const [registerData, setRegisterData] = useState({
-    name: "",
     email: "",
+    name: "",
     phone: "",
     password: "",
+    address: "",
     otp: "",
+    otpVerified: false,
     termsAccepted: false,
     companyName: userType !== "individual" ? "" : undefined,
     businessLicenseNo: userType !== "individual" ? "" : undefined,
@@ -45,14 +47,19 @@ export default function RegisterWasteRoles({
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-        registerData.email
-      )
-    ) {
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(registerData.email)) {
       Swal.fire({
         title: "Error",
         text: "Please enter a valid email ID.",
+        icon: "error",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    if (!registerData.otpVerified) {
+      Swal.fire({
+        title: "Error",
+        text: "Please verify your OTP before registering.",
         icon: "error",
       });
       setIsSubmitting(false);
@@ -89,9 +96,7 @@ export default function RegisterWasteRoles({
       return;
     }
     try {
-      const res = await api.post(
-        `/otp/user-otp`,
-        { email: registerData.email },
+      const res = await api.post(`/otp/user-otp`, { email: registerData.email },
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
@@ -107,42 +112,57 @@ export default function RegisterWasteRoles({
         icon: "success",
       });
     } catch (err) {
-      console.log(err);
-      Swal.fire({ title: "Error", text: "Failed to send OTP", icon: "error" });
+      if (err.response.status === 400) {
+        Swal.fire({ title: "Error", text: "Email already exist", icon: "error" });
+      } else if (err.response.status === 401) {
+        Swal.fire({ title: "Error", text: "Email already exist", icon: "error" });
+      } else {
+        Swal.fire({ title: "Error", text: "Failed to send otp", icon: "error" });
+      }
     }
   };
 
   const handleVerifyOTP = async () => {
     if (!registerData.otp) {
-      alert("Please enter OTP");
+      Swal.fire({
+        title: "Error",
+        text: "Please enter the OTP.",
+        icon: "error",
+      });
       return;
     }
 
     try {
-      const response = await fetch("https://your-backend.com/verify-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: registerData.email, // Using email for verification
-          otp: registerData.otp,
-        }),
+      const response = await api.post("/otp/verify-otp", {
+        email: registerData.email,
+        otp: registerData.otp,
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("OTP Verified Successfully");
+      if (response.data.success) {
+        Swal.fire({
+          title: "Success",
+          text: "OTP Verified Successfully",
+          icon: "success",
+        });
         setRegisterData({ ...registerData, otpVerified: true }); // Mark as verified
       } else {
-        alert("Invalid OTP. Please try again.");
+        Swal.fire({
+          title: "Error",
+          text: response.data.message,
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
-      alert("Something went wrong. Try again later.");
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong. Try again later.",
+        icon: "error",
+      });
     }
   };
+
+
 
   // Icons to be scattered
   const icons = [
@@ -217,11 +237,10 @@ export default function RegisterWasteRoles({
                 type="button"
                 onClick={handleVerifyOTP}
                 className={`absolute right-2 top-1/2 transform -translate-y-1/2 
-        ${
-          registerData.otpVerified
-            ? "text-green-600"
-            : "text-blue-600 hover:text-blue-800"
-        }
+        ${registerData.otpVerified
+                    ? "text-green-600"
+                    : "text-blue-600 hover:text-blue-800"
+                  }
         text-sm font-semibold`}
               >
                 {registerData.otpVerified ? "✅" : "Verify OTP"}
@@ -234,6 +253,17 @@ export default function RegisterWasteRoles({
             name="phone"
             placeholder="Phone"
             value={registerData.phone}
+            onChange={handleRegisterChange}
+            required
+            autoComplete="off"
+            className="w-full p-2 mb-3 border rounded"
+          />
+
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            value={registerData.address}
             onChange={handleRegisterChange}
             required
             autoComplete="off"
@@ -344,7 +374,7 @@ export default function RegisterWasteRoles({
               className="absolute inset-y-0 right-3 flex items-center"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
           <div className="flex items-center mb-3">

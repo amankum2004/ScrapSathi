@@ -1,48 +1,33 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken")
 
-const UserSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
+const UserSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        phone: { type: String, required: true },
+        password: { type: String, required: true },
+        otp: { type: String }, // Stores OTP for verification
+        otpVerified: { type: Boolean, default: false },
+        termsAccepted: { type: Boolean, required: true },
+        userType: {
+            type: String,
+            default: "individual",
+            enum: ["individual", "waste-collector", "big-organization", "recycle-company"],
+            required: true,
+        },
+        address: { type: String },
+        profilePhoto:{ type: String},
+        companyName: { type: String },
+        businessLicenseNo: { type: String },
+        wasteType: { type: String }, // Only for "big-organization"
+        recyclingCapabilities: { type: String }, // Only for "recycle-company"
     },
-    phone:{
-        type:String,
-        required:true,
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-    },
-    password:{
-        type:String,
-        required:true,
-    },
-    usertype:{
-        type:String,
-        default: "individual",
-        enum: ['individual', 'organization','waste-collector','recycle-company', 'admin']
-    },
-    termsAccepted: {
-        type: Boolean,
-        required: true
-    }
-});
+    { timestamps: true }
+);
 
-const User = mongoose.model('User',UserSchema);
-module.exports=User;
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
 
-// UserSchema.methods.generateToken = async function () {
-//     try {
-//         return jwt.sign({
-//             userId: this._id.toString(),
-//             email:this.email,
-//             isAdmin:this.isAdmin,
-//         },secret.secret,{expiresIn: "1h"});
-//     } catch (error) {
-//         console.error(error)
-//     }
-// };
 
 
