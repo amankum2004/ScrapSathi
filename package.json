@@ -1,0 +1,17 @@
+{
+  "name": "scrapsathi",
+  "version": "1.0.0",
+  "description": "Waste management application",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write .",
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+    "start": "cd frontend && npm run build && cd ../backend && npm run start"
+  },
+  "author": "\"Aman Pranav\"",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
+  }
+}

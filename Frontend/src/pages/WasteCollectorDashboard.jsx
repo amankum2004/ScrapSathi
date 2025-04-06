@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { api } from "../utils/api";
 
-const CollectorDashboard = () => {
+const  CollectorDashboard = () => {
   const { user } = useLogin();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -135,6 +135,7 @@ const CollectorDashboard = () => {
       </div>
     </div>
   );
+}
 
 export default CollectorDashboard;
 
