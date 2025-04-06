@@ -1,16 +1,12 @@
 const PickupRequest = require("../model/pickupRequest-model");
 const User = require("../model/user/user-model");
-const Notification = require("../model/wasteRequestNotification-model");
-// const nodemailer = require("nodemailer");
-const {sendConfirmationEmail} = require("../utils/mail");
+const { notifyWasteCollectors, sendConfirmationEmail } = require("../utils/mail");
 
 // Create a new pickup request
 exports.createPickupRequest = async (req, res) => {
   try {
-    // console.log("Request body:", req.body);
-    // const { userId, wasteType, quantity, address, preferredTimeSlot } = req.body;
     const { userId, wasteType, quantity, address, preferredTimeSlot, subcategory } = req.body;
-    // const photo = req.file ? req.file.filename : null;
+  
     if (!userId) {
       return res.status(400).json({ error: "User ID is required." });
     }
@@ -33,16 +29,13 @@ exports.createPickupRequest = async (req, res) => {
 
     await pickupRequest.save();
 
-    // Get all waste collectors
-    const wasteCollectors = await User.find({ userType: "waste-collector" });
-
-    // Send notification to all collectors
-    const notifications = wasteCollectors.map(collector => ({
-      wasteCollectorId: collector._id,
-      message: `New waste pickup request at ${address}`,
-    }));
-    await Notification.insertMany(notifications);
-    res.status(201).json({ message: "Pickup request created and notified collectors." });
+    // Fetch all waste collectors
+    const wasteCollectors = await User.find({ usertype: "waste-collector" }, "email");
+    const collectorEmails = wasteCollectors.map((collector) => collector.email);
+    if (collectorEmails.length > 0) {
+      await notifyWasteCollectors(collectorEmails, req.body);
+    }
+    res.status(201).json({ message: "Pickup request created, emails sent to collectors." });
   } catch (error) {
     console.log("Error from backend-", error.message);
     res.status(500).json({ error: error.message });
@@ -118,7 +111,6 @@ exports.acceptRequest = async (req, res) => {
     // Send confirmation email
     const user = await User.findById(request.userId);
     const wasteCollector = await User.findById(wasteCollectorId);
-
     if (user && wasteCollector) {
       await sendConfirmationEmail(user.email, wasteCollector);
     }
@@ -152,7 +144,7 @@ exports.cancelAcceptedRequest = async (req, res) => {
     request.wasteCollector = null;
     await request.save();
 
-    res.status(200).json({ message: "Request canceled successfully, available for others", request });
+    res.status(200).json({ message: "Request cancelled successfully, available for others", request });
   } catch (error) {
     res.status(500).json({ message: "Error canceling request", error });
   }

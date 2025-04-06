@@ -44,7 +44,7 @@ exports.userOTP = async (req, res) => {
 
 
 
-exports.sendOTPforgot = async (req, res) => {
+exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
 

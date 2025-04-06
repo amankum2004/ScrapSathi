@@ -16,5 +16,4 @@ router.use('/donation',donationRoute)
 router.use('/pickup',wastePickup)
 
 
-
 module.exports = router
