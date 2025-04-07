@@ -19,6 +19,8 @@ import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
 import EditProfile from './pages/EditProfile';
 import ProfileView from './pages/UserProfile';
 import AdvancedDashboard from './pages/AdvancedDashboard'
+import BigOrganizationDashboard from "./pages/big-organization";
+import RecycleCompanyDashboard from "./pages/recycle-company";
 
 function App() {
  
@@ -36,12 +38,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/individual-dashboard" element={<UserDashboard />} />
           <Route path="/sellWaste" element={<SellWaste />} />
-          <Route path="/supportUs" element={<SupportUs />} />
-          <Route path="/learningCentre" element={<LearningCentre />} />
+          <Route path="/donate" element={<SupportUs />} />
+          <Route path="/learning" element={<LearningCentre />} />
           <Route path="/waste-collector-requests" element={<WasteCollectorDashboard />} />
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/AdvancedDashboard" element={<AdvancedDashboard/>} />
+          <Route path="/organization-dashboard" element={<BigOrganizationDashboard/>} />
+          <Route path="/recycle-company-dashboard" element={<RecycleCompanyDashboard/>} />
 
           <Route path="*" element={<Error />} />
         </Routes>
