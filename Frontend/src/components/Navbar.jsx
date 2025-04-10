@@ -59,7 +59,6 @@ const Navbar = ({ to, label, onClick }) => {
 
             {loggedIn ? (
               <>
-                {/* Hide profile image on small screens */}
                 <img
                   alt="img"
                   className="img hidden md:block"
@@ -70,14 +69,13 @@ const Navbar = ({ to, label, onClick }) => {
               </>
             ) : (
               <>
-                {/* Hide profile image on small screens */}
-                <img
+                {/* <img
                   alt="img"
                   className="img hidden sm:block"
                   src="/images/dp_logo.jpg"
                   width="50"
                   height="50"
-                />
+                /> */}
                 <ul className="nav-item login-item">
                   <Link
                     to="/login"
@@ -157,13 +155,13 @@ const Navbar = ({ to, label, onClick }) => {
               </>
             ) : (
               <>
-                <img
+                {/* <img
                   alt="img"
                   className="img hidden sm:block"
                   src="/images/dp_logo.jpg"
                   width="50"
                   height="50"
-                />
+                /> */}
                 <ul className="nav-item login-item">
                   <Link
                     to="/login"
