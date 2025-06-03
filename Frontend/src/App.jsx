@@ -21,6 +21,8 @@ import ProfileView from './pages/UserProfile';
 import AdvancedDashboard from './pages/AdvancedDashboard'
 import BigOrganizationDashboard from "./pages/big-organization";
 import RecycleCompanyDashboard from "./pages/recycle-company";
+import ForgotPassword from "./pages/Forget";
+import UpdatePassword from "./pages/updatePassword";
 
 function App() {
  
@@ -40,6 +42,8 @@ function App() {
           <Route path="/sellWaste" element={<SellWaste />} />
           <Route path="/donate" element={<SupportUs />} />
           <Route path="/learning" element={<LearningCentre />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/updatePassword" element={<UpdatePassword />} />
           <Route path="/waste-collector-requests" element={<WasteCollectorDashboard />} />
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/editProfile" element={<EditProfile />} />

@@ -22,7 +22,6 @@ router.route('/user').get( authControllers.user)
 
 // router.route('/user').get(authMiddleware, authControllers.user)
 // router.route('/usertype').get(authMiddleware, authControllers.getUserType)
-// router.route('/forget').post()
 
 
 module.exports = router;
