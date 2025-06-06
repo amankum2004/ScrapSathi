@@ -8,7 +8,9 @@ const { createPickupRequest,
     markNotificationSeen, 
     getAllWasteRequests, 
     acceptRequest,
-    cancelAcceptedRequest} = require("../controller/wastePickup-controller");
+    markCompleted,
+    cancelAcceptedRequest,
+  collectorCompletedRequests} = require("../controller/wastePickup-controller");
 
 
 // Create pickup request
@@ -16,6 +18,8 @@ router.post("/request", upload.single("photo"), createPickupRequest);
 router.get("/waste-requests", getAllWasteRequests);
 router.post("/accept-request", acceptRequest);
 router.post("/cancel-request", cancelAcceptedRequest);
+router.post("/complete-request",markCompleted);
+router.get('/collector-requests/:collectorId',collectorCompletedRequests);
 
 // Get all pickup requests for a user (including wasteCollector details)
 router.get("/user-requests/:userId", async (req, res) => {

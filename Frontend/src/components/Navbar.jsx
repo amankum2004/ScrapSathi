@@ -200,7 +200,7 @@ const Navbar = ({ to, label, onClick }) => {
                       <NavLink to="/profile" label="Profile" onClick={() => setSideDrawerOpen(false)} />
                       <NavLink to="/waste-collector-dashboard" label="Dashboard" onClick={() => setSideDrawerOpen(false)} />
                       <NavLink to="/waste-collector-requests" label="Requests" onClick={() => setSideDrawerOpen(false)} />
-                      <NavLink to="/wasteCollectorRegistration" label="Register as waste collector" onClick={() => setSideDrawerOpen(false)} />
+                      {/* <NavLink to="/wasteCollectorRegistration" label="Register as waste collector" onClick={() => setSideDrawerOpen(false)} /> */}
                     </>
                   ) : user.userType === 'big-organization' ?(
                     <>

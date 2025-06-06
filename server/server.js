@@ -50,13 +50,6 @@ mongoose
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
 
-// app.use(cors({
-//     origin: "http://localhost:5173", // Replace with your frontend URL
-//     credentials: true, // Allow credentials (cookies, sessions, etc.)
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'], // Allow necessary methods
-//     allowedHeaders: ["Content-Type", "Authorization"] // Allow necessary headers
-// }));
-
 
 app.options('*', cors(corsOptions)); // Handle preflight requests
 

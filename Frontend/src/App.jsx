@@ -14,8 +14,8 @@ import { Error } from './pages/Error';
 import SellWaste from './pages/SellWaste';
 import SupportUs from './pages/SupportUs';
 import LearningCentre from "./pages/LearningCentre";
-import WasteCollectorDashboard from './pages/WasteCollectorDashboard';
-// import RegisterWasteCollector from './pages/WasteCollectorRegistration';
+import WasteCollectorRequests from './pages/WasteCollectorRequests';
+import WasteCollectorDashboard from "./pages/WasteCollectorDashboard";
 import EditProfile from './pages/EditProfile';
 import ProfileView from './pages/UserProfile';
 import AdvancedDashboard from './pages/AdvancedDashboard'
@@ -44,7 +44,8 @@ function App() {
           <Route path="/learning" element={<LearningCentre />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/updatePassword" element={<UpdatePassword />} />
-          <Route path="/waste-collector-requests" element={<WasteCollectorDashboard />} />
+          <Route path="/waste-collector-requests" element={<WasteCollectorRequests />} />
+          <Route path="/waste-collector-dashboard" element={<WasteCollectorDashboard />} />
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/AdvancedDashboard" element={<AdvancedDashboard/>} />
