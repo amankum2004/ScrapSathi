@@ -1,30 +1,77 @@
 # ♻️ ScrapSaathi – Smart Waste & E-Waste Collection Platform
 
-ScrapSaathi is a full-stack waste management web application that allows users to schedule waste pickups, donate to environmental causes, and enables collectors and admins to manage the system efficiently. 🌱
+**ScrapSaathi** is a modern, full-stack web platform designed to streamline the process of waste and e-waste collection. It connects users, waste collectors, and administrators in an eco-conscious ecosystem that promotes recycling, donation, and sustainability. 🌱
+
+🔗 **Live Demo**: [scrap-sathi.vercel.app](https://scrap-sathi.vercel.app)
 
 ---
 
 ## 🚀 Features
 
 ### 👤 User Panel
-- Register/login with OTP verification & password visibility toggle
-- Book pickups for various types of waste (e-waste, metal, plastic, etc.)
-- Upload photos and estimate quantity (weight) for each waste category
-- Track pickup request status
-- Donate to tree plantation or NGOs via the support page
+- Register/login with OTP-based email verification
+- Password visibility toggle for ease of access
+- Book pickups for:
+  - E-waste
+  - Metal waste
+  - Plastic waste
+  - Others
+- Upload images & estimate quantity (by weight)
+- Track the status of your waste pickup requests
+- Donate to:
+  - Tree plantation drives
+  - Registered NGOs
+- Real-time assistant chatbot for platform queries
+
+### 🤖 AI Chatbot (RAG Assistant)
+- Integrated chatbot widget using React
+- Powered by:
+  - **FastAPI backend**
+  - **Retrieval-Augmented Generation (RAG)** pipeline
+  - **FAISS vector database**
+- Supports follow-up context with previous queries
+- Fetches document-based answers using embeddings and cosine similarity
 
 ### 🚛 Collector Dashboard
-- View and accept pending waste pickup requests
-- Manage active bookings
-- Track collection history
+- View and accept pickup requests
+- Track active collection jobs
+- Access historical collection logs
 
 ### 🛠️ Admin Panel
-- Secure login for admins
-- View all users, donations, and waste requests
-- Analyze and manage platform-wide activity
+- Secure JWT-protected login
+- View all users, waste requests, and donation records
+- Full platform-wide monitoring & control
+- Admin analytics (basic activity summaries)
 
-### 🌐 Tech Stack
-- **Frontend:** React.js, Tailwind CSS, SweetAlert2
-- **Backend:** Node.js, Express.js, MongoDB, Mongoose
-- **Authentication:** JWT + OTP-based email verification
-- **Other:** RESTful APIs, HeroIcons, Cloud image support (e.g., Cloudinary)
+---
+
+## 🌐 Tech Stack
+
+### Frontend
+- React.js
+- Tailwind CSS
+- React Icons (HeroIcons, etc.)
+- SweetAlert2
+- React-Markdown (for rich chatbot messages)
+
+### Backend
+- Node.js + Express.js (Main App Backend)
+- MongoDB + Mongoose (Database)
+- JWT Authentication + OTP Email Verification
+
+### Chatbot Backend (RAG)
+- **FastAPI** (Python 3.10+)
+- **FAISS** for vector similarity search
+- **SentenceTransformers / HuggingFace Transformers** for embedding generation
+- **RAG-style pipeline**: Retrieve docs → Generate answer using prompt
+- Serves responses via a REST API consumed by React frontend
+
+---
+
+## 📦 Other Integrations
+- GitHub Actions / CI-ready
+- Responsive UI (mobile and tablet optimized)
+- `.env`-based environment config (secure & scalable)
+
+---
+
