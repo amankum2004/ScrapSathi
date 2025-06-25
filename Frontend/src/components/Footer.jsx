@@ -21,14 +21,6 @@ function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
                   href="/about"
                   className="text-gray-400 hover:text-white transition duration-300"
                 >
@@ -49,6 +41,14 @@ function Footer() {
                   className="text-gray-400 hover:text-white transition duration-300"
                 >
                   Contact Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/privacy-policy"
+                  className="text-gray-400 hover:text-white transition duration-300"
+                >
+                  Privacy-Policy
                 </a>
               </li>
             </ul>

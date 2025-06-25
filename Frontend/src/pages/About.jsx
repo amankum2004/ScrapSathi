@@ -42,7 +42,7 @@ function About() {
             <div className="bg-white shadow-lg rounded-lg p-8">
               <img
                 className="w-24 h-24 rounded-full mx-auto"
-                src="https://via.placeholder.com/150"
+                src="/images/dp_logo.jpg"
                 alt="Team Member"
               />
               <h3 className="text-xl font-semibold text-gray-800 mt-4">
@@ -55,7 +55,7 @@ function About() {
             <div className="bg-white shadow-lg rounded-lg p-8">
               <img
                 className="w-24 h-24 rounded-full mx-auto"
-                src="https://via.placeholder.com/150"
+                src="/images/dp_logo.jpg"
                 alt="Team Member"
               />
               <h3 className="text-xl font-semibold text-gray-800 mt-4">
@@ -123,7 +123,7 @@ function About() {
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-semibold">Get In Touch</h2>
           <p className="mt-4 text-lg">
-            Have any questions? Reach out to us, and we'd love to assist you in
+            Have any questions? Reach out to us, and we would assist you in
             any way we can.
           </p>
           <a

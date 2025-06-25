@@ -1,6 +1,9 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Hero() {
+  const navigate = useNavigate();
   return (
     <section className="min-h-[80vh] bg-gradient-to-r from-green-500 to-blue-500 text-white flex-col flex items-center justify-center relative mt-20 p-5">
       <div className="absolute inset-0"></div>
@@ -12,8 +15,9 @@ function Hero() {
           Your trusted partner in waste management, recycling, and
           sustainability for a cleaner, greener planet.
         </p>
-        <button className="bg-gradient-to-r drop-shadow-lg shadow-[5px_0px_10px_rgba(0,0,0,0.2)] from-emerald-500  text-white py-3 px-8 mt-8 rounded-full text-xl hover:bg-green-800 transition duration-300 ">
+        <button onClick={()=>navigate('/login')} className="bg-gradient-to-r drop-shadow-lg shadow-[5px_0px_10px_rgba(0,0,0,0.2)] from-emerald-500  text-white py-3 px-8 mt-8 rounded-full text-xl hover:bg-green-800 transition duration-300 ">
           Get Started
+          
         </button>
       </div>
     </section>

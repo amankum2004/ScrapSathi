@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+// const baseUrl = 
+//   import.meta.env.VITE_environment === 'development' 
+//     ? import.meta.env.VITE_DEV_BASE_URL 
+//     : 'https://scrap-sathi.vercel.app/api'
+
 const baseUrl = 
   import.meta.env.VITE_environment === 'development' 
     ? import.meta.env.VITE_DEV_BASE_URL 

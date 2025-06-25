@@ -72,7 +72,7 @@ export default function PickupRequestForm() {
         preferredTimeSlot: "morning",
         subcategory: "",
       });
-      navigate('/individualDashboard');
+      navigate('/individual-dashboard');
     } catch (error) {
       console.error("Error submitting request:", error);
       alert("Failed to Submit Request");

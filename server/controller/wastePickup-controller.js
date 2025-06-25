@@ -149,3 +149,69 @@ exports.cancelAcceptedRequest = async (req, res) => {
     res.status(500).json({ message: "Error canceling request", error });
   }
 };
+
+
+// router.post('/complete-request', async (req, res) => {
+exports.markCompleted = async (req,res) => {
+  try {
+    const { requestId, wasteCollectorId } = req.body;
+
+    // Validate input
+    if (!requestId || !wasteCollectorId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Find the request
+    const request = await PickupRequest.findById(requestId);
+    if (!request) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+
+    // Verify the collector is the one who accepted it
+    if (request.wasteCollector.toString() !== wasteCollectorId) {
+      return res.status(403).json({ message: 'Not authorized to complete this request' });
+    }
+
+    // Verify the request is in accepted state
+    if (request.status !== 'accepted') {
+      return res.status(400).json({ message: 'Request must be accepted before completion' });
+    }
+
+    // Update the request
+    request.status = 'completed';
+    request.completedAt = new Date();
+    await request.save();
+
+    // Optionally: Update user stats or trigger notifications here
+
+    res.json({ message: 'Request marked as completed', request });
+  } catch (error) {
+    console.error('Error completing request:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+// Get all requests for a specific waste collector
+// router.get('/collector-requests/:collectorId', async (req, res) => {
+exports.collectorCompletedRequests = async (req,res) => {
+  try {
+    const { collectorId } = req.params;
+    
+    // Find all requests where this collector is involved
+    const requests = await PickupRequest.find({
+      $or: [
+        { wasteCollector: collectorId },
+        { 'history.collectorId': collectorId }
+      ]
+    })
+    .populate('userId', 'name phone')
+    .populate('wasteCollector', 'name phone vehicle')
+    .sort({ createdAt: -1 });
+
+    res.json(requests);
+  } catch (error) {
+    console.error('Error fetching collector requests:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
