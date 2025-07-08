@@ -9,6 +9,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { Pie } from "react-chartjs-2";
 import { useLogin } from "../components/LoginContext";
+import {
+  MapPinIcon,
+  PhoneIcon,
+  XCircleIcon,
+} from "lucide-react";
 import { api } from "../utils/api";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
@@ -290,3 +295,11 @@ export default function WasteCollectorDashboard() {
     </div>
   );
 }
+
+
+
+
+
+
+
+

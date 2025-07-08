@@ -23,6 +23,7 @@ import BigOrganizationDashboard from "./pages/big-organization";
 import RecycleCompanyDashboard from "./pages/recycle-company";
 import ForgotPassword from "./pages/Forget";
 import UpdatePassword from "./pages/updatePassword";
+import FloatingChatWidget from "./pages/FloatingChatWidget";
 
 function App() {
  
@@ -30,7 +31,8 @@ function App() {
     <>
     <BrowserRouter>
       <LoginProvider>
-        <Navbar />
+          <Navbar />
+          <FloatingChatWidget/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

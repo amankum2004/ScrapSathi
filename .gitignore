@@ -64,3 +64,25 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Ignore virtual environments
+venv/
+Backend_chatapp/venv/
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore environment variables
+.env
+Backend_chatapp/.env
+
+# Ignore VS Code settings (optional)
+.vscode/
+
+# Ignore logs (optional)
+*.log
+
+# Ignore common OS/system files
+.DS_Store
+Thumbs.db
