@@ -67,7 +67,7 @@ export default function FloatingChatWidget() {
 
     const prevQueries = [...userQueries, input].slice(-2);
 
-    const backendURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+    const backendURL = import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
 
     try {
       const res = await fetch(`${backendURL}/chat`, {
